@@ -24,4 +24,28 @@ defmodule MyList do
 
   # Write a function MyList.span(from, to) that returns a list of the numbers from from up to to .
   def span(from, to) when to > from, do: Enum.map(from..to, &(&1))
+
+  def charge do
+    tax_rates = [ NC: 0.075, TX: 0.08 ]
+    orders = [
+      [ id: 123, ship_to: :NC, net_amount: 100.00 ],
+      [ id: 124, ship_to: :OK, net_amount: 35.50 ],
+      [ id: 125, ship_to: :TX, net_amount: 24.00 ],
+      [ id: 126, ship_to: :TX, net_amount: 44.80 ],
+      [ id: 127, ship_to: :NC, net_amount: 25.00 ],
+      [ id: 128, ship_to: :MA, net_amount: 10.00 ],
+      [ id: 129, ship_to: :CA, net_amount: 102.00 ],
+      [ id: 120, ship_to: :NC, net_amount: 50.00 ]
+    ]
+
+    Enum.map(orders, fn(order) ->
+      ship_to = order[:ship_to]
+      net_amount = order[:net_amount]
+      total_amount = case tax_rates[ship_to] do
+        nil -> net_amount
+        tax_rate -> net_amount + net_amount * tax_rate
+      end
+      order ++ [total_amount: total_amount]
+    end)
+  end
 end
