@@ -21,4 +21,7 @@ defmodule MyList do
 
   # An Elixir single-quoted string is actually a list of individual character codes. Write a caesar(list, n) function that adds n to each list element, wrapping if the addition results in a character greater than z . iex> MyList.caesar( 'ryvkve' , 13) ?????? :)
   def caesar(list, n), do: Enum.map(list, &(&1 + n))
+
+  # Write a function MyList.span(from, to) that returns a list of the numbers from from up to to .
+  def span(from, to) when to > from, do: Enum.map(from..to, &(&1))
 end
